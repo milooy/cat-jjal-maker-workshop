@@ -63,10 +63,8 @@
       )
     }
 
-    function MainCard() {
-      function handleHeartClick() {
-        console.log("하트 눌렀음");
-      };
+    function MainCard({ handleHeartClick }) {
+
 
       function handleHeartMouseOver() {
         console.log("하트 스쳐 지나감");
@@ -80,12 +78,9 @@
       )
     }
 
-    function Favorites() {
-      const CAT1 = "https://cataas.com/cat/60b73094e04e18001194a309/says/react";
-      const CAT2 = "https://cataas.com//cat/5e9970351b7a400011744233/says/inflearn";
-      const CAT3 =
-        "https://cataas.com/cat/595f280b557291a9750ebf65/says/JavaScript";
-      const cats = [CAT1, CAT2, CAT3];
+    function Favorites({ favorites }) {
+
+      const cats = favorites;
       return (
         <ul className="favorites">
           {cats.map((cat) => (
@@ -103,7 +98,13 @@
 
       const [counter, setCounter] = React.useState(1);
       const [mainCat, setMainCat] = React.useState(CAT1);
+      const [favorites, setFavorites] = React.useState([CAT1, CAT2]);
       console.log("카운터", counter);
+
+      function handleHeartClick() {
+        console.log("하트 눌렀음");
+        setFavorites([...favorites, CAT3]);
+      };
 
       function handleFormSubmit(event) {
         event.preventDefault();
@@ -116,8 +117,8 @@
         <div>
           <Title>{counter}번째 고양이 가라사대</Title>
           <Form handleFormSubmit={handleFormSubmit} />
-          <MainCard img={mainCat} />
-          <Favorites />
+          <MainCard img={mainCat} handleHeartClick={handleHeartClick} />
+          <Favorites favorites={favorites} />
         </div>
       )
     }

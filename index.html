@@ -54,15 +54,7 @@
       return (<h1>{props.children}</h1>)
     }
 
-    const Form = ({ onSubmit }) => {
-      const [counter, setCounter] = React.useState(1);
-      console.log("카운터", counter);
-
-      function handleFormSubmit(event) {
-        event.preventDefault();
-        console.log("폼 전송됨");
-        setCounter(counter + 1);
-      }
+    const Form = ({ handleFormSubmit }) => {
       return (
         <form onSubmit={handleFormSubmit}>
           <input type="text" name="name" placeholder="영어 대사를 입력해주세요" />

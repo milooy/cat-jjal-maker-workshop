@@ -54,7 +54,7 @@
       return (<h1>{props.children}</h1>)
     }
 
-    const Form = () => {
+    const Form = ({ onSubmit }) => {
       const [counter, setCounter] = React.useState(1);
       console.log("카운터", counter);
 
@@ -74,11 +74,12 @@
     function MainCard() {
       function handleHeartClick() {
         console.log("하트 눌렀음");
-      }
+      };
 
       function handleHeartMouseOver() {
         console.log("하트 스쳐 지나감");
-      }
+      };
+
       return (
         <div className="main-card">
           <img src="https://cataas.com/cat/60b73094e04e18001194a309/says/react" alt="고양이" width="400" />
@@ -88,25 +89,49 @@
     }
 
     function Favorites() {
+      const CAT1 = "https://cataas.com/cat/60b73094e04e18001194a309/says/react";
+      const CAT2 = "https://cataas.com//cat/5e9970351b7a400011744233/says/inflearn";
+      const CAT3 =
+        "https://cataas.com/cat/595f280b557291a9750ebf65/says/JavaScript";
+      const cats = [CAT1, CAT2, CAT3];
       return (
         <ul className="favorites">
-          <CatItem img="https://cataas.com//cat/5e9970351b7a400011744233/says/inflearn" />
-          <CatItem img="https://cataas.com/cat/595f280b557291a9750ebf65/says/JavaScript" />
+          {cats.map((cat) => (
+            <CatItem img={cat} key={cat} />
+          ))}
         </ul>
       )
     }
 
-    const app = (
-      <div>
-        <Title>1번째 고양이 가라사대</Title>
-        <Form />
-        <MainCard />
-        <Favorites />
-      </div>
-    )
+    const App = () => {
+      const CAT1 = "https://cataas.com/cat/60b73094e04e18001194a309/says/react";
+      const CAT2 = "https://cataas.com//cat/5e9970351b7a400011744233/says/inflearn";
+      const CAT3 =
+        "https://cataas.com/cat/595f280b557291a9750ebf65/says/JavaScript";
+
+      const [counter, setCounter] = React.useState(1);
+      const [mainCat, setMainCat] = React.useState(CAT1);
+      console.log("카운터", counter);
+
+      function handleFormSubmit(event) {
+        event.preventDefault();
+        console.log("폼 전송됨");
+        setCounter(counter + 1);
+        setMainCat(CAT2);
+      }
+
+      return (
+        <div>
+          <Title>{counter}번째 고양이 가라사대</Title>
+          <Form handleFormSubmit={handleFormSubmit} />
+          <MainCard img={mainCat} />
+          <Favorites />
+        </div>
+      )
+    }
 
     const target = document.querySelector("#app");
-    ReactDOM.render(app, target);
+    ReactDOM.render(<App />, target);
   </script>
 </body>
 
